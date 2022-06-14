@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { decrementby5, decrementby10 } from "../src/features/bank/bankSlice";
 
-function App() {
+const App = () => {
+  const count = useSelector((state) => state.bankSlice.value);
+  const dispatch = useDispatch();
+  const [amount, setAmount] = useState(2500701);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App">
+        <img
+          className="App__userpic"
+          src={"https://image.ibb.co/nC8vGp/girl.png"}
+          alt="photographer"
+        />
+        {/* <p className="App__username">Hello, {username}! </p> */}
+        <div className="App__amount">
+          {/* {totalAmount} */}
+          {count}
+          <p className="App__amount--info">Total Amount</p>
+        </div>
+
+        <section className="App__buttons">
+          <button data-amount="10000" onClick={() => dispatch(decrementby10())}>
+            WITHDRAW $10,000
+          </button>
+          <button data-amount="5000" onClick={() => dispatch(decrementby5())}>
+            WITHDRAW $5,000
+          </button>
+        </section>
+        <p className="App__giveaway">Give away all your cash to charity</p>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
